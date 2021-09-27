@@ -1,0 +1,12 @@
+.header {
+    /*padding: 20px 0;*/
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    /* box-shadow: 0 1px 1px 1px rgb(204 204 204 / 30%); */
+    height: 80px;
+}
+
+.gce_link {
+    margin-top: 20px;
+    text-align: center;
+}
