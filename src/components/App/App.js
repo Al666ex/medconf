@@ -1,9 +1,7 @@
 import React,{useState, useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+//import { BrowserRouter as Router, Route, Link, useHistory} from 'react-router-dom';
 
-//import {browserHistory} from 'react-router';
-import { Redirect } from 'react-router';
 import Header from '../header'
 import Footer from '../footer'
 import productCategory from '../classifiers/productCategory'
@@ -17,34 +15,24 @@ import './App.css'
 //import store from "../../store";
 
 
-
 const App = () => {
-
+  
+  const [firstPage, changeFirstPage] = useState(true);
+  const [secondPage, changeSecondPage] = useState(false);
+  
 ///////////
 
 useEffect(() => {
-  window.onbeforeunload = function() { 
-    return <App key={Math.random()} />;
+  window.onbeforeunload = function() {       
+    
+    //window.location.replace("http://10.12.89.43:3000/");
+    return <App />; 
   };
-  
 }, []);
-
-
-
-
-// useEffect(() => {
-//   window.onbeforeunload = function() {   
-//     console.log("text.............")
-//     window.location.replace("http://10.12.89.43:3000/");
-//     return <App />; 
-//   };
-// }, []);
 
 ////////
 
-  const dispatch = useDispatch()
-
-  
+  const dispatch = useDispatch()  
 
   const regionCLS = useSelector(store => store.relations.region)
   const brandCLS = useSelector(store => store.relations.brand) 
@@ -68,33 +56,45 @@ useEffect(() => {
     e.preventDefault()
   }
 
+  const change = () => {
+
+  }
+
   return(
-    <Router>
-    <div className="jumbotron container main noselect">
+    
+    <div className="jumbotron container main noselect">      
       <Header />
      
       <main>
       <div className="row">
         <div className="col col_border">
           <form className="form-group" onSubmit={submit}> 
-            <Route path="/" exact component={() =>
-              <>
+            
+              <div style={{ display: firstPage ? "block" : "none" }}>
                 <View data={productCategory} disabled={false} />
                 <View checkValue={check(brand.name)} data={brand} disabled={brandCLS} />                
-                <button className="btn btn-primary mb-3">
-                  <Link to='/parametrs/'>NEXT</Link>
+                <button onClick={() => {
+                          changeFirstPage(false)
+                          changeSecondPage(true)
+                        }} 
+                        className="btn btn-primary mb-3">NEXT
+                  
                 </button>
-              </>
-            }/>
-            <Route path="/parametrs" exact component={() =>
-              <>
+              </div>
+            
+            
+              <div style={{ display: secondPage ? "block" : "none" }}>
                 <View checkValue={check(region.name)} data={region} disabled={regionCLS} />   
                 <View checkValue={check(standart.name)} data={standart} disabled={standartCLS} /> 
-                <button className="btn btn-primary mb-3">
-                  <Link to='/'>PREV</Link>
+                <button onClick={() => {
+                          changeFirstPage(true)
+                          changeSecondPage(false)
+                        }} 
+                        className="btn btn-primary mb-3">PREV
+                  
                 </button>
-              </>
-            }/>
+              </div>
+            
 
             <div className="wizard-card"> </div>
           </form>
@@ -107,7 +107,7 @@ useEffect(() => {
       </main>
       <Footer />
     </div>
-    </Router>
+    
   )
 }
 
