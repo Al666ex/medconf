@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useLayoutEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 //import { BrowserRouter as Router, Route, Link, useHistory} from 'react-router-dom';
 
@@ -12,28 +12,48 @@ import View from '../view'
 import CartList from '../cart-list'
 import {updateClient} from '../../actions'
 import './App.css'
-//import store from "../../store";
+import './AppMedia.css'
+
+/////////////
+function useWindowSize() {
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  return size;
+}
+
+function ShowWindowDimensions(props) {
+  const [width, height] = useWindowSize();
+  return width
+}
+// function ShowWindowDimensions(props) {
+//   const [width, height] = useWindowSize();
+//   return <span>Window size: {width} x {height}</span>;
+// }
+///////////// 
 
 
-const App = () => {
-  
+
+
+const App = () => {  
   const [firstPage, changeFirstPage] = useState(true);
   const [secondPage, changeSecondPage] = useState(false);
-  
-///////////
+  let clientWidt = ShowWindowDimensions()
+  console.log(ShowWindowDimensions())
 
-useEffect(() => {
-  window.onbeforeunload = function() {       
-    
-    //window.location.replace("http://10.12.89.43:3000/");
-    return <App />; 
-  };
-}, []);
-
-////////
+  useEffect(() => {
+    window.onbeforeunload = function() {    
+      return <App />; 
+    };
+  }, []);
 
   const dispatch = useDispatch()  
-
   const regionCLS = useSelector(store => store.relations.region)
   const brandCLS = useSelector(store => store.relations.brand) 
   const standartCLS = useSelector(store => store.relations.standart) 
@@ -56,8 +76,9 @@ useEffect(() => {
     e.preventDefault()
   }
 
-  const change = () => {
-
+  const change = (first, second) => {
+    changeFirstPage(first)
+    changeSecondPage(second)
   }
 
   return(
@@ -67,31 +88,22 @@ useEffect(() => {
      
       <main>
       <div className="row">
-        <div className="col col_border">
+        <div className={(clientWidt<400) ? "" : "col col_border"}>
           <form className="form-group" onSubmit={submit}> 
             
               <div style={{ display: firstPage ? "block" : "none" }}>
                 <View data={productCategory} disabled={false} />
                 <View checkValue={check(brand.name)} data={brand} disabled={brandCLS} />                
-                <button onClick={() => {
-                          changeFirstPage(false)
-                          changeSecondPage(true)
-                        }} 
-                        className="btn btn-primary mb-3">NEXT
-                  
+                <button onClick={() => change(false,true)} 
+                        className="btn btn-primary mb-3">NEXT                  
                 </button>
-              </div>
-            
+              </div>            
             
               <div style={{ display: secondPage ? "block" : "none" }}>
                 <View checkValue={check(region.name)} data={region} disabled={regionCLS} />   
                 <View checkValue={check(standart.name)} data={standart} disabled={standartCLS} /> 
-                <button onClick={() => {
-                          changeFirstPage(true)
-                          changeSecondPage(false)
-                        }} 
-                        className="btn btn-primary mb-3">PREV
-                  
+                <button onClick={() => change(true,false)}  
+                        className="btn btn-primary mb-3">PREV                  
                 </button>
               </div>
             
@@ -99,7 +111,7 @@ useEffect(() => {
             <div className="wizard-card"> </div>
           </form>
         </div>
-        <div className="col">           
+        <div className={(clientWidt<400) ? "" :"col"}>           
             <CartList key={Math.random()} />          
         </div>
         

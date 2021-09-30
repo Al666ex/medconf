@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@media (max-width: 768px)  {
+  h3{
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .wizard-card {
+    min-height: 35px;  
+  }
+}

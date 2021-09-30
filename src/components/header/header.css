@@ -2,11 +2,30 @@
     /*padding: 20px 0;*/
     background-color: #fff;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    /*flex-direction: row;*/
+    justify-content: space-between;
     /* box-shadow: 0 1px 1px 1px rgb(204 204 204 / 30%); */
     height: 80px;
 }
 
+.logo{
+    display: block;
+    width: 50%;
+    /*width: 145px;*/
+}
+
 .gce_link {
-    margin-top: 20px;
+    display: block;
+    
+    width: 50%;
     text-align: center;
+}
+
+
+.gce_link a {
+    display: block;
+    text-align: center;
+    margin-top: 35px;
+    margin-left: 15px;
 }
