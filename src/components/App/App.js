@@ -11,41 +11,16 @@ import standart from '../classifiers/connection-standart'
 import View from '../view'
 import CartList from '../cart-list'
 import {updateClient} from '../../actions'
+import {ShowWindowDimensions} from '../../methods/resize'
 import './App.css'
 import './AppMedia.css'
 
-/////////////
-function useWindowSize() {
-  const [size, setSize] = useState([0, 0]);
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-  return size;
-}
-
-function ShowWindowDimensions(props) {
-  const [width, height] = useWindowSize();
-  return width
-}
-// function ShowWindowDimensions(props) {
-//   const [width, height] = useWindowSize();
-//   return <span>Window size: {width} x {height}</span>;
-// }
-///////////// 
-
-
-
-
 const App = () => {  
+  const widthMedia = 768
   const [firstPage, changeFirstPage] = useState(true);
   const [secondPage, changeSecondPage] = useState(false);
   let clientWidt = ShowWindowDimensions()
-  console.log(ShowWindowDimensions())
+  //console.log(ShowWindowDimensions())
 
   useEffect(() => {
     window.onbeforeunload = function() {    
@@ -88,7 +63,7 @@ const App = () => {
      
       <main>
       <div className="row">
-        <div className={(clientWidt<400) ? "" : "col col_border"}>
+        <div className={(clientWidt<widthMedia) ? "" : "col col_border"}>
           <form className="form-group" onSubmit={submit}> 
             
               <div style={{ display: firstPage ? "block" : "none" }}>
@@ -111,7 +86,7 @@ const App = () => {
             <div className="wizard-card"> </div>
           </form>
         </div>
-        <div className={(clientWidt<400) ? "" :"col"}>           
+        <div className={(clientWidt<widthMedia) ? "" :"col-8"}>           
             <CartList key={Math.random()} />          
         </div>
         
@@ -122,6 +97,5 @@ const App = () => {
     
   )
 }
-
 
 export default App;

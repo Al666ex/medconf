@@ -3,6 +3,18 @@
 
 
 @media (max-width: 768px)  {
+  /* .main{
+    width: 300px;
+  } */
+  /* .header{
+    height: 60px;
+    margin-top: 10px;
+  }
+
+  .logo img{
+    width: 60%;
+  } */
+
   h3{
     font-size: 15px;
     font-weight: bold;
@@ -11,4 +23,20 @@
   .wizard-card {
     min-height: 35px;  
   }
+}
+
+@media (max-width: 340px)  {
+  .main{
+    width: 300px;
+  }
+   .header{
+    height: 60px;
+    margin-top: 10px;
+  }  
+  .logo{
+    margin-top: 15px;
+  }  
+  .logo img{
+    width: 75%;
+  }   
 }
