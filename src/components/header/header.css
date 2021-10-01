@@ -11,14 +11,16 @@
 
 .logo{
     display: block;
-    width: 50%;
+    /*width: 50%;*/
+   /* width: 33.66666667%;*/
+    
     /*width: 145px;*/
 }
 
 .gce_link {
     display: block;
-    
-    width: 50%;
+    width: 66.66666667%;
+    /*width: 50%;*/
     text-align: center;
 }
 

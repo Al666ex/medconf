@@ -2,6 +2,7 @@ import React,{useState, useEffect, useLayoutEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 //import { BrowserRouter as Router, Route, Link, useHistory} from 'react-router-dom';
 
+
 import Header from '../header'
 import Footer from '../footer'
 import productCategory from '../classifiers/productCategory'
@@ -12,10 +13,17 @@ import View from '../view'
 import CartList from '../cart-list'
 import {updateClient} from '../../actions'
 import {ShowWindowDimensions} from '../../methods/resize'
+
+import TestGet from '../image'
 import './App.css'
 import './AppMedia.css'
 
+
+
 const App = () => {  
+
+  
+
   const widthMedia = 768
   const [firstPage, changeFirstPage] = useState(true);
   const [secondPage, changeSecondPage] = useState(false);
@@ -63,6 +71,7 @@ const App = () => {
      
       <main>
       <div className="row">
+      
         <div className={(clientWidt<widthMedia) ? "" : "col col_border"}>
           <form className="form-group" onSubmit={submit}> 
             
@@ -86,7 +95,7 @@ const App = () => {
             <div className="wizard-card"> </div>
           </form>
         </div>
-        <div className={(clientWidt<widthMedia) ? "" :"col-8"}>           
+        <div className={(clientWidt<widthMedia) ? "" :"col"}>           
             <CartList key={Math.random()} />          
         </div>
         

@@ -1,7 +1,7 @@
 
 const ConnectionStandart = {
     name : "Connection Standart",
-    child : "",
+    child : "shirt",
     classifier : [
         //{group : "UK (HTM)"},
         {value : "UK", name : "UK (HTM)"},
